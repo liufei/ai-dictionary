@@ -1,14 +1,12 @@
-async function matchDefinition(sentence: string, word: string) {
-  const response = await fetch("http://localhost:11434/api/generate", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model: "gemma3:12b",
+import ollama from 'ollama'
 
-      system: `When given an English sentence and a specific word from it, follow these steps:
-1. Analyze the sentence’s context to understand the word’s role.
+export async function agent(sentence: string, word: string) {
+  const { response } = await ollama.generate({
+    model: 'gemma3:12b',
+    prompt: `Sentence: ${sentence}
+Word: ${word}`,
+    system: `When given an English sentence and a specific word from it, follow these steps:
+1. Analyze the sentence's context to understand the word's role.
 2. Identify the part of speech (noun, verb, adjective, etc.) accurately.
 3. Define the word using simple, everyday language from the Oxford 3000 American English list.
 4. Keep the definition concise (1-2 short lines, like a text message).
@@ -26,22 +24,7 @@ word: elated
 Output:
 adjective
 Extremely happy and excited because of something good that happened.`,
-
-      prompt: `Sentence: ${sentence}
-  Word: ${word}`,
-
-      stream: false,
-    }),
-  });
-  const payload = await response.json();
-  return payload.response;
+    stream: false,
+  })
+  return response
 }
-
-export async function agent(sentence: string, word: string) {
-  const definition = await matchDefinition(sentence, word);
-  return definition;
-}
-
-// agent("Hello! What’s going on here?", "hello").then(console.log);
-// agent("Hello? How may I help you?", "hello").then(console.log);
-// agent("Hello? Is anyone there?", "hello").then(console.log);
