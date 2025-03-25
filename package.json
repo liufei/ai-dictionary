@@ -1,0 +1,22 @@
+{
+  "name": "ai-dict-cli",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "volta": {
+    "node": "23.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.12"
+  },
+  "dependencies": {
+    "ollama": "^0.5.14"
+  }
+}
