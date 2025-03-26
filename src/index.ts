@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import * as readline from 'node:readline/promises'
 import { stdin as input, stdout as output } from 'node:process'
-import { execSync } from 'node:child_process'
 import { ai } from './ai.ts'
 import { addNote } from './anki.ts'
 
@@ -18,7 +17,6 @@ async function run() {
   console.log()
 
   const meaning = await ai(Sentence, Word)
-  execSync(`say "${Word}"`)
   console.log(meaning)
   console.log()
 
