@@ -17,6 +17,6 @@
     "@types/node": "^22.13.12"
   },
   "dependencies": {
-    "ollama": "^0.5.14"
+    "openai": "^4.89.0"
   }
 }
