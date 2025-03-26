@@ -1,13 +1,13 @@
 import OpenAI from 'openai'
 
 const client = new OpenAI({
-  apiKey: process.env['OPENAI_API_KEY'],
   baseURL: process.env['OPENAI_BASE_URL'],
+  apiKey: process.env['OPENAI_API_KEY'],
 })
 
 export async function ai(sentence: string, word: string) {
   const completion = await client.chat.completions.create({
-    model: 'deepseek-r1',
+    model: process.env['OPENAI_MODEL'],
     messages: [
       {
         role: 'system',

@@ -27,8 +27,9 @@ Add card template.
 Open terminal, set environment variables.
 
 ```sh
-export OPENAI_API_KEY=sk-***
 export OPENAI_BASE_URL=https://***
+export OPENAI_API_KEY=sk-***
+export OPENAI_MODEL=deepseek-r1
 ```
 
 Paste sentence and word into command line, press `Ctrl+C` to exit.
