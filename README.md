@@ -6,9 +6,8 @@
 
 - Node.js v22.6.0+
 - Anki Desktop
-
 - AnkiConnect
-- deepseek-r1 API Key
+- LLM API Key
 
 ## Usage
 
@@ -24,12 +23,22 @@ Add card template.
 
 <img width="768" alt="Screenshot 2025-03-26 at 14 39 09" src="https://github.com/user-attachments/assets/76da63ae-ce04-4252-abd1-5c4994d288ed" />
 
-Open terminal, set environment variables.
+Open terminal, set environment variables:
+
+- OpenAI, Deepseek, etc.
 
 ```sh
 export OPENAI_BASE_URL=https://***
 export OPENAI_API_KEY=sk-***
 export OPENAI_MODEL=deepseek-r1
+```
+
+- Ollama
+
+```sh
+export OPENAI_BASE_URL=http://localhost:11434/v1
+export OPENAI_API_KEY=ollama
+export OPENAI_MODEL=gemma3:27b
 ```
 
 Paste sentence and word into command line, press `Ctrl+C` to exit.
