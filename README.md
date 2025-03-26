@@ -2,28 +2,16 @@
 
 > Ask AI to explain the word in sentence and save definition to Anki.
 
-## Requirements
+## Ask AI to explain the word in sentence
 
-- Node.js v22.6.0+
-- Anki Desktop
-- AnkiConnect
+### Requirements
+
+- Node.js
 - LLM API Key
 
-## Usage
+### Usage
 
-Open Anki, create deck `AI Dictionary`.
-
-<img width="768" alt="Screenshot 2025-03-26 at 14 37 54" src="https://github.com/user-attachments/assets/7a6fbe99-5dfd-4303-ab04-cc4fcffe194a" />
-
-Click `Tools` -> `Manage Note Types` from Anki menu, add note type `AI Dictionary`.
-
-<img width="768" alt="Screenshot 2025-03-26 at 14 38 43" src="https://github.com/user-attachments/assets/ceaa06f1-85cc-4a16-8812-dc05a8e4f27e" />
-
-Add card template.
-
-<img width="768" alt="Screenshot 2025-03-26 at 14 39 09" src="https://github.com/user-attachments/assets/76da63ae-ce04-4252-abd1-5c4994d288ed" />
-
-Open terminal, set environment variables:
+1. Open terminal, set environment variables:
 
 - OpenAI, Deepseek, etc.
 
@@ -41,11 +29,37 @@ export OPENAI_API_KEY=ollama
 export OPENAI_MODEL=gemma3:27b
 ```
 
-Paste sentence and word into command line, press `Ctrl+C` to exit.
+2. Paste sentence and word into command line, press `Ctrl+C` to exit.
 
 ```sh
 npx ai-dictionary
 ```
 
+### Example
+
 <img width="1512" alt="Screenshot 2025-03-26 at 11 58 32" src="https://github.com/user-attachments/assets/c2c1d9e9-d543-45c4-a7e9-853045887db0" />
+
+## Save definition to Anki
+
+### Requirements
+
+- Anki Desktop
+- AnkiConnect
+
+### Usage
+
+1. Open Anki, create deck `AI Dictionary`.
+
+<img width="768" alt="Screenshot 2025-03-26 at 14 37 54" src="https://github.com/user-attachments/assets/7a6fbe99-5dfd-4303-ab04-cc4fcffe194a" />
+
+2. Click `Tools` -> `Manage Note Types` from Anki menu, add note type `AI Dictionary`.
+
+<img width="768" alt="Screenshot 2025-03-26 at 14 38 43" src="https://github.com/user-attachments/assets/ceaa06f1-85cc-4a16-8812-dc05a8e4f27e" />
+
+3. Add card template.
+
+<img width="768" alt="Screenshot 2025-03-26 at 14 39 09" src="https://github.com/user-attachments/assets/76da63ae-ce04-4252-abd1-5c4994d288ed" />
+
+### Example
+
 <img width="768" alt="Screenshot 2025-03-26 at 12 03 43" src="https://github.com/user-attachments/assets/16d1f6ac-fbf8-46b1-b7d8-402daffa062e" />
