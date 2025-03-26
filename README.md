@@ -9,16 +9,14 @@
 - AnkiConnect
 - deepseek-r1 API Key
 
-## Installation
+## Usage
+
+Set environment variables.
 
 ```sh
-git clone https://github.com/liufei/ai-dictionary.git
-npm i
 export OPENAI_API_KEY=sk-***
 export OPENAI_BASE_URL=https://***
 ```
-
-## Usage
 
 Paste sentence and word into command line, press `Ctrl+C` to exit.
 
