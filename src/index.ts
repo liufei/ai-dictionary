@@ -9,19 +9,20 @@ const rl = readline
   .on('SIGINT', () => rl.close())
 
 async function run() {
-  const Sentence = await rl.question('Sentence: ')
-  const Word = await rl.question('Word: ')
+  const sentence = await rl.question('Sentence: ')
+  const word = await rl.question('Word: ')
 
   console.log()
   console.log('Thinking...')
   console.log()
 
-  const meaning = await ai(Sentence, Word)
-  console.log(meaning)
+  const meaning = await ai(sentence, word)
+  let [partOfSpeech, definition] = meaning.split('\n')
+  console.log(`Part of Speech: ${partOfSpeech}`)
+  console.log(`Definition: ${definition}`)
   console.log()
 
-  const [PartOfSpeech, Definition] = meaning.split('\n')
-  const noteId = await addNote(Sentence, Word, PartOfSpeech, Definition)
+  const noteId = await addNote(sentence, word, partOfSpeech, definition)
   if (noteId) console.log(`Node ID: ${noteId}`)
   console.log()
 
