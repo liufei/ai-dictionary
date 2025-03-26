@@ -22,7 +22,7 @@ async function run() {
 
   const [PartOfSpeech, Definition] = meaning.split('\n')
   const noteId = await addNote(Sentence, Word, PartOfSpeech, Definition)
-  console.log(`Node ID: ${noteId}`)
+  if (noteId) console.log(`Node ID: ${noteId}`)
   console.log()
 
   run()

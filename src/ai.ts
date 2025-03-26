@@ -19,7 +19,7 @@ export async function ai(sentence: string, word: string) {
 
 Output Format:
 [correct part of speech]
-[clear, simple explanation]  
+[clear, simple explanation]
 
 Example:
 
