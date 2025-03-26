@@ -1,23 +1,35 @@
 {
-  "name": "ai-dict-cli",
-  "version": "1.0.0",
-  "main": "index.ts",
+  "name": "ai-dictionary",
+  "version": "0.0.0",
+  "description": "Ask AI to explain the word in sentence and save definition to Anki.",
   "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "main": "dist/index.js",
+  "bin": {
+    "ai-dictionary": "dist/index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "volta": {
-    "node": "23.10.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liufei/ai-dictionary.git"
   },
-  "devDependencies": {
-    "@types/node": "^22.13.12"
-  },
+  "homepage": "https://github.com/liufei/ai-dictionary",
+  "keywords": [
+    "ai",
+    "dictionary",
+    "deepseek-r1",
+    "anki",
+    "anki-connect"
+  ],
+  "author": "liufei",
+  "license": "MIT",
   "dependencies": {
     "openai": "^4.89.0",
     "yanki-connect": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.12",
+    "typescript": "^5.8.2"
+  },
+  "volta": {
+    "node": "22.14.0"
   }
 }

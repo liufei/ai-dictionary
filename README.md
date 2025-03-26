@@ -1,7 +1,9 @@
 # AI Dictionary
+
 > Ask AI to explain the word in sentence and save definition to Anki.
 
 ## Requirements
+
 - Node.js v22.6.0+
 - Anki Desktop
 - AnkiConnect
@@ -21,7 +23,7 @@ export OPENAI_BASE_URL=https://***
 Paste sentence and word into command line, press `Ctrl+C` to exit.
 
 ```sh
-node src/index.ts
+npx ai-dictionary
 ```
 
 <img width="1512" alt="Screenshot 2025-03-26 at 11 58 32" src="https://github.com/user-attachments/assets/c2c1d9e9-d543-45c4-a7e9-853045887db0" />
