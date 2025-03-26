@@ -17,6 +17,7 @@
     "@types/node": "^22.13.12"
   },
   "dependencies": {
-    "openai": "^4.89.0"
+    "openai": "^4.89.0",
+    "yanki-connect": "^2.2.0"
   }
 }

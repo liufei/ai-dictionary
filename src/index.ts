@@ -1,25 +1,31 @@
 #!/usr/bin/env node
-import * as readline from "node:readline/promises";
-import { stdin as input, stdout as output } from "node:process";
-import { agent } from "./agent.ts";
+import * as readline from 'node:readline/promises'
+import { stdin as input, stdout as output } from 'node:process'
+import { ai } from './ai.ts'
+import { addNote } from './anki.ts'
 
 const rl = readline
   .createInterface({ input, output })
-  .on("SIGINT", () => rl.close());
+  .on('SIGINT', () => rl.close())
 
 async function run() {
-  const sentence = await rl.question("Sentence: ");
-  const word = await rl.question("Word: ");
+  const Sentence = await rl.question('Sentence: ')
+  const Word = await rl.question('Word: ')
 
-  console.log();
-  console.log("Thinking...");
-  console.log();
+  console.log()
+  console.log('Thinking...')
+  console.log()
 
-  const definition = await agent(sentence, word);
-  console.log(definition);
-  console.log();
+  const meaning = await ai(Sentence, Word)
+  console.log(meaning)
+  console.log()
 
-  run();
+  const [PartOfSpeech, Definition] = meaning.split('\n')
+  const noteId = await addNote(Sentence, Word, PartOfSpeech, Definition)
+  console.log(`Node ID: ${noteId}`)
+  console.log()
+
+  run()
 }
 
-run();
+run()

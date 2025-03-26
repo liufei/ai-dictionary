@@ -5,7 +5,7 @@ const client = new OpenAI({
   baseURL: process.env['OPENAI_BASE_URL'],
 })
 
-export async function agent(sentence: string, word: string) {
+export async function ai(sentence: string, word: string) {
   const completion = await client.chat.completions.create({
     model: 'deepseek-r1',
     messages: [
