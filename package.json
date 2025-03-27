@@ -23,7 +23,8 @@
   "license": "MIT",
   "dependencies": {
     "openai": "^4.89.0",
-    "yanki-connect": "^2.2.0"
+    "yanki-connect": "^2.2.0",
+    "yoctocolors": "^2.1.1"
   },
   "devDependencies": {
     "@types/node": "^22.13.12",
