@@ -11,19 +11,15 @@
 
 ### Usage
 
-1. Open terminal, set environment variables:
-
-- OpenAI, Deepseek, etc.
+1. Open terminal, set environment variables.
 
 ```sh
+# Online: OpenAI, Deepseek, etc.
 export OPENAI_BASE_URL=https://***
 export OPENAI_API_KEY=sk-***
 export OPENAI_MODEL=deepseek-r1
-```
 
-- Ollama
-
-```sh
+# Offline: Ollama
 export OPENAI_BASE_URL=http://localhost:11434/v1
 export OPENAI_API_KEY=ollama
 export OPENAI_MODEL=gemma3:27b
