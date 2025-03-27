@@ -14,6 +14,11 @@ async function main() {
   const word = await rl.question(colors.bold('Word: '))
   console.log()
 
+  if (!sentence || !word) {
+    console.log(colors.bold('Invalid input, start over.'))
+    console.log()
+    return main()
+  }
   console.log(colors.bold('Thinking...'))
   console.log()
 
@@ -24,7 +29,7 @@ async function main() {
   await addNote(sentence, word, partOfSpeech, definition)
   console.log()
 
-  main()
+  return main()
 }
 
 main()
