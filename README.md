@@ -33,7 +33,7 @@ npx ai-dictionary
 
 ### Example
 
-<img width="1512" alt="Screenshot 2025-03-26 at 11 58 32" src="https://github.com/user-attachments/assets/c2c1d9e9-d543-45c4-a7e9-853045887db0" />
+<img width="1512" alt="Screenshot 2025-03-27 at 14 02 34" src="https://github.com/user-attachments/assets/f52ec69f-8aa5-467a-9326-9ab403278a5d" />
 
 ## Save definition to Anki
 
