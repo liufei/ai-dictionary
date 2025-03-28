@@ -6,7 +6,6 @@
 
 ### Requirements
 
-- Node.js
 - LLM API Key
 
 ### Usage
