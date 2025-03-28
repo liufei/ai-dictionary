@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"context"
 	"fmt"
+	"log"
 	"os"
 	"slices"
 	"strings"
@@ -16,6 +17,28 @@ import (
 )
 
 func main() {
+	// OpenAI
+	baseURL, ok := os.LookupEnv("OPENAI_BASE_URL")
+	if !ok {
+		log.Fatal("Can't find environment variable OPENAI_BASE_URL.")
+	}
+	model, ok := os.LookupEnv("OPENAI_MODEL")
+	if !ok {
+		log.Fatal("Can't find environment variable OPENAI_MODEL.")
+	}
+	openaiClient := openai.NewClient(option.WithBaseURL(baseURL))
+
+	// Anki
+	ankiClient := ankiconnect.NewClient()
+	decks, err := ankiClient.Decks.GetAll()
+	const NAME = "AI Dictionary"
+	var saveAnki = true
+	if err != nil || !slices.Contains(*decks, NAME) {
+		fmt.Println("Can't find Anki Deck, skip.")
+		saveAnki = false
+	}
+
+	// Prompt
 	reader := bufio.NewReader(os.Stdin)
 	bold := color.New(color.Bold).SprintFunc()
 	for {
@@ -38,9 +61,8 @@ func main() {
 		fmt.Println(bold("Thinking..."))
 		fmt.Println()
 
-		meaning := ai(sentence, word)
+		meaning := ai(&openaiClient, model, sentence, word)
 		parts := strings.SplitN(meaning, "\n", 2)
-		// partOfSpeech, definition := parts[0], parts[1]
 		partOfSpeech := parts[0]
 		partOfSpeech = strings.TrimSpace(partOfSpeech)
 		definition := parts[1]
@@ -49,24 +71,17 @@ func main() {
 		fmt.Printf("%s%s\n", bold("Part of Speech: "), partOfSpeech)
 		fmt.Printf("%s%s\n", bold("Definition: "), definition)
 
-		anki(sentence, word, partOfSpeech, definition)
+		if saveAnki {
+			anki(ankiClient, NAME, sentence, word, partOfSpeech, definition)
+		}
 		fmt.Println()
 	}
 }
 
-func ai(sentence string, word string) string {
-	var baseURL option.RequestOption
-	if o, ok := os.LookupEnv("OPENAI_BASE_URL"); ok {
-		baseURL = option.WithBaseURL(o)
-	}
-	client := openai.NewClient(baseURL)
-
-	var model string
-	if m, ok := os.LookupEnv("OPENAI_MODEL"); ok {
-		model = m
-	}
+func ai(client *openai.Client, model string, sentence string, word string) string {
 	chatCompletion, err := client.Chat.Completions.New(context.TODO(), openai.ChatCompletionNewParams{
 		Model: model,
+
 		Messages: []openai.ChatCompletionMessageParamUnion{
 			openai.SystemMessage(`When given an English sentence and a specific word from it, follow these steps:
 1. Analyze the sentence's context to understand the word's role.
@@ -79,16 +94,15 @@ Output Format:
 [clear, simple explanation]
 
 Example:
-
 Input:
 sentence: She felt elated after winning the race.
 word: elated
-
 Output:
 adjective
 Extremely happy and excited because of something good that happened.`),
-			openai.UserMessage(fmt.Sprintf(`Sentence: %s
-Word: %s`, sentence, word)),
+
+			openai.UserMessage(fmt.Sprintf(`sentence: %s
+word: %s`, sentence, word)),
 		},
 	})
 	if err != nil {
@@ -97,15 +111,7 @@ Word: %s`, sentence, word)),
 	return chatCompletion.Choices[0].Message.Content
 }
 
-func anki(sentence string, word string, partOfSpeech string, definition string) {
-	const NAME = "AI Dictionary"
-	client := ankiconnect.NewClient()
-	decks, err := client.Decks.GetAll()
-	if err != nil || !slices.Contains(*decks, NAME) {
-		fmt.Println("Can't find deck, skip.")
-		return
-	}
-
+func anki(client *ankiconnect.Client, NAME string, sentence string, word string, partOfSpeech string, definition string) {
 	note := ankiconnect.Note{
 		DeckName:  NAME,
 		ModelName: NAME,

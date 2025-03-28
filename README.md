@@ -8,6 +8,10 @@
 
 - LLM API Key
 
+### Installation
+
+Download latest [realases](https://github.com/liufei/ai-dictionary/releases).
+
 ### Usage
 
 1. Open terminal, set environment variables.
@@ -24,11 +28,7 @@ export OPENAI_API_KEY=ollama
 export OPENAI_MODEL=gemma3:27b
 ```
 
-2. Paste sentence and word into command line, press `Ctrl+C` to exit.
-
-```sh
-npx ai-dictionary
-```
+2. Run `ai-dictionary`, paste sentence and word into command line, press `Ctrl+C` to exit.
 
 ### Example
 
