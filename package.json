@@ -1,6 +1,6 @@
 {
   "name": "ai-dictionary",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Ask AI to explain the word in sentence and save definition to Anki.",
   "type": "module",
   "main": "dist/index.js",
