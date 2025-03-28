@@ -14,6 +14,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/openai/openai-go"
 	"github.com/openai/openai-go/option"
+	"github.com/openai/openai-go/packages/param"
 )
 
 func main() {
@@ -81,9 +82,9 @@ func main() {
 func ai(client *openai.Client, model string, sentence string, word string) string {
 	chatCompletion, err := client.Chat.Completions.New(context.TODO(), openai.ChatCompletionNewParams{
 		Model: model,
-
 		Messages: []openai.ChatCompletionMessageParamUnion{
-			openai.SystemMessage(`When given an English sentence and a specific word from it, follow these steps:
+			openai.SystemMessage(`
+When given an English sentence and a specific word from it, follow these steps:
 1. Analyze the sentence's context to understand the word's role.
 2. Identify the part of speech (noun, verb, adjective, etc.) accurately.
 3. Define the word using simple, everyday language from the Oxford 3000 American English list.
@@ -101,12 +102,14 @@ Output:
 adjective
 Extremely happy and excited because of something good that happened.`),
 
-			openai.UserMessage(fmt.Sprintf(`sentence: %s
+			openai.UserMessage(fmt.Sprintf(`
+sentence: %s
 word: %s`, sentence, word)),
 		},
+		Temperature: param.Opt[float64]{Value: 0.1},
 	})
 	if err != nil {
-		panic(err.Error())
+		log.Fatal(err.Error())
 	}
 	return chatCompletion.Choices[0].Message.Content
 }

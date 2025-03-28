@@ -10,7 +10,7 @@
 
 ### Installation
 
-Download latest [realases](https://github.com/liufei/ai-dictionary/releases).
+Download latest [release](https://github.com/liufei/ai-dictionary/releases).
 
 ### Usage
 
