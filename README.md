@@ -22,7 +22,7 @@
 3. Run command
    - For Node.js users: `npx ai-dictionary`
    - For Go users: `go run github.com/liufei/ai-dictionary`
-   - For other userss: Download [latest release](https://github.com/liufei/ai-dictionary/releases).
+   - For other users: Download [latest release](https://github.com/liufei/ai-dictionary/releases).
 4. Paste sentence and word into command line, press `Ctrl+C` to exit.
 
 ### Example
