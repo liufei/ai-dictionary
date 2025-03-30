@@ -8,27 +8,22 @@
 
 - LLM API Key
 
-### Installation
-
-Download latest [release](https://github.com/liufei/ai-dictionary/releases).
-
 ### Usage
 
-1. Open terminal, set environment variables.
-
-```sh
-# Online: OpenAI, Deepseek, etc.
-export OPENAI_BASE_URL=https://***
-export OPENAI_API_KEY=sk-***
-export OPENAI_MODEL=deepseek-r1
-
-# Offline: Ollama
-export OPENAI_BASE_URL=http://localhost:11434/v1
-export OPENAI_API_KEY=ollama
-export OPENAI_MODEL=gemma3:27b
-```
-
-2. Run `ai-dictionary`, paste sentence and word into command line, press `Ctrl+C` to exit.
+1. Open terminal, set environment variables
+   - OpenAI, Deepseek, etc.
+     ```sh
+     export OPENAI_BASE_URL=https://***; export OPENAI_API_KEY=sk-***; export OPENAI_MODEL=deepseek-r1
+     ```
+   - Ollama
+     ```sh
+     export OPENAI_BASE_URL=http://localhost:11434/v1; export OPENAI_API_KEY=ollama; export OPENAI_MODEL=gemma3:27b
+     ```
+3. Run command
+   - For Node.js users: `npx ai-dictionary`
+   - For Go users: `go run github.com/liufei/ai-dictionary`
+   - For other userss: Download [latest release](https://github.com/liufei/ai-dictionary/releases).
+4. Paste sentence and word into command line, press `Ctrl+C` to exit.
 
 ### Example
 
