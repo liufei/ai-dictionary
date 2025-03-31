@@ -35,7 +35,7 @@ func main() {
 	const NAME = "AI Dictionary"
 	var saveAnki = true
 	if err != nil || !slices.Contains(*decks, NAME) {
-		fmt.Println("Can't find Anki Deck, skip.")
+		fmt.Printf("Can't find Anki Deck, skip.\n\n")
 		saveAnki = false
 	}
 
@@ -46,21 +46,17 @@ func main() {
 		fmt.Print(bold("Sentence: "))
 		sentence, _ := reader.ReadString('\n')
 		sentence = strings.TrimSpace(sentence)
-
 		fmt.Print(bold("Word: "))
 		word, _ := reader.ReadString('\n')
 		word = strings.TrimSpace(word)
-
 		fmt.Println()
 
 		if sentence == "" || word == "" {
-			fmt.Println(bold("Invalid input, start over."))
-			fmt.Println()
+			fmt.Printf("%s\n\n", bold("Invalid input, start over."))
 			continue
 		}
 
-		fmt.Println(bold("Thinking..."))
-		fmt.Println()
+		fmt.Printf("%s\n\n", bold("Thinking..."))
 
 		meaning := ai(&openaiClient, model, sentence, word)
 		parts := strings.SplitN(meaning, "\n", 2)
@@ -68,14 +64,12 @@ func main() {
 		partOfSpeech = strings.TrimSpace(partOfSpeech)
 		definition := parts[1]
 		definition = strings.TrimSpace(definition)
-
-		fmt.Printf("%s%s\n", bold("Part of Speech: "), partOfSpeech)
-		fmt.Printf("%s%s\n", bold("Definition: "), definition)
+		fmt.Printf("%s %s\n", bold("Part of Speech:"), partOfSpeech)
+		fmt.Printf("%s %s\n\n", bold("Definition:"), definition)
 
 		if saveAnki {
 			anki(ankiClient, NAME, sentence, word, partOfSpeech, definition)
 		}
-		fmt.Println()
 	}
 }
 
@@ -127,7 +121,7 @@ func anki(client *ankiconnect.Client, NAME string, sentence string, word string,
 		},
 	}
 	if err := client.Notes.Add(note); err != nil {
-		fmt.Println("Failed to create note.")
+		fmt.Printf("Failed to create Anki note: %s\n", err.Error)
 		return
 	}
 }
