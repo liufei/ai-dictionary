@@ -1,9 +1,20 @@
 {
   "name": "ai-dictionary",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Ask AI to explain the word in sentence and save definition to Anki.",
-  "type": "module",
+  "keywords": [
+    "ai",
+    "dictionary",
+    "openai",
+    "anki",
+    "anki-connect",
+    "ollama"
+  ],
+  "homepage": "https://github.com/liufei/ai-dictionary",
+  "license": "MIT",
+  "author": "liufei",
   "main": "dist/index.js",
+  "type": "module",
   "bin": {
     "ai-dictionary": "dist/index.js"
   },
@@ -11,26 +22,18 @@
     "type": "git",
     "url": "git+https://github.com/liufei/ai-dictionary.git"
   },
-  "homepage": "https://github.com/liufei/ai-dictionary",
-  "keywords": [
-    "ai",
-    "dictionary",
-    "deepseek-r1",
-    "anki",
-    "anki-connect"
-  ],
-  "author": "liufei",
-  "license": "MIT",
-  "dependencies": {
-    "openai": "^4.89.0",
-    "yanki-connect": "^2.2.0",
-    "yoctocolors": "^2.1.1"
+  "scripts": {
+    "test": "npx tsc && npx ."
   },
   "devDependencies": {
-    "@types/node": "^22.13.12",
+    "@tsconfig/node20": "^20.1.5",
+    "@types/node": "^22.13.15",
     "typescript": "^5.8.2"
   },
+  "engines": {
+    "node": ">=20.12.0"
+  },
   "volta": {
-    "node": "23.10.0"
+    "node": "20.12.0"
   }
 }
