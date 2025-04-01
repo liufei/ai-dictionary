@@ -6,30 +6,25 @@
 
 ### Requirements
 
-- Node.js
+- Node.js >=20.12.0
 - LLM API Key
 
 ### Usage
 
-1. Open terminal, set environment variables.
-
-```sh
-# Online: OpenAI, Deepseek, etc.
-export OPENAI_BASE_URL=https://***
-export OPENAI_API_KEY=sk-***
-export OPENAI_MODEL=deepseek-r1
-
-# Offline: Ollama
-export OPENAI_BASE_URL=http://localhost:11434/v1
-export OPENAI_API_KEY=ollama
-export OPENAI_MODEL=gemma3:27b
-```
-
-2. Paste sentence and word into command line, press `Ctrl+C` to exit.
-
-```sh
-npx ai-dictionary
-```
+1. Open terminal, set environment variables
+   - OpenAI, Deepseek, etc.
+     ```sh
+     export OPENAI_BASE_URL=https://***; export OPENAI_API_KEY=sk-***; export OPENAI_MODEL=deepseek-r1
+     ```
+   - Ollama
+     ```sh
+     export OPENAI_BASE_URL=http://localhost:11434/v1; export OPENAI_API_KEY=ollama; export OPENAI_MODEL=gemma3:27b
+     ```
+2. Run command `npx ai-dictionary`
+3. Paste sentence and word into command line
+   - press `Enter` to ask AI
+   - press `Ctrl+L` to clear console
+   - press `Ctrl+C` to exit program
 
 ### Example
 
