@@ -14,7 +14,7 @@
 1. Open terminal, set environment variables
    - OpenAI, Deepseek, etc.
      ```sh
-     export OPENAI_BASE_URL=https://***; export OPENAI_API_KEY=sk-***; export OPENAI_MODEL=deepseek-r1
+     export OPENAI_BASE_URL=https://api.deepseek.com/v1; export OPENAI_API_KEY=sk-***; export OPENAI_MODEL=deepseek-r1
      ```
    - Ollama
      ```sh
