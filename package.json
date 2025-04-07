@@ -1,6 +1,6 @@
 {
   "name": "ai-dictionary",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Ask AI to explain the word in sentence and save definition to Anki.",
   "keywords": [
     "ai",
