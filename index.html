@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Dictionary</title>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
+    integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls"
+    crossorigin="anonymous"
+  />
+  <style>
+    main {
+      margin: auto;
+      max-width: 375px;
+      padding: 1rem;
+    }
+
+    form {
+      margin-bottom: 2rem;
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    dt {
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    dd {
+      margin-bottom: 1rem;
+      margin-inline-start: 0;
+    }
+  </style>
+  <script type="module">
+    import {
+      html,
+      render,
+      useState,
+    } from "https://unpkg.com/htm/preact/standalone.module.js"
+    import { ai } from "https://unpkg.com/ai-dictionary@0.0.5/dist/ai.js"
+    import { addNote } from "https://unpkg.com/ai-dictionary@0.0.5/dist/anki.js"
+
+    function App() {
+      const [data, setData] = useState(() => {
+        const local = localStorage.getItem("AI-Dictionary")
+        const openai = local ? JSON.parse(local) : null
+        return {
+          OPENAI_BASE_URL: openai.OPENAI_BASE_URL || "",
+          OPENAI_API_KEY: openai.OPENAI_API_KEY || "",
+          OPENAI_MODEL: openai.OPENAI_MODEL || "",
+          sentence: "",
+          word: "",
+          partOfSpeech: "",
+          definition: "",
+        }
+      })
+      const [meaning, setMeaning] = useState(null)
+      const [loading, setLoading] = useState(false)
+
+      function handleChange(event) {
+        const { name, value } = event.target
+        setData(data => ({
+          ...data,
+          [name]: value,
+        }))
+      }
+
+      async function handleSubmit(event) {
+        event.preventDefault()
+
+        setLoading(true)
+
+        window.process = window.process || {}
+        window.process.env = window.process.env || {}
+        window.process.env.OPENAI_BASE_URL = data.OPENAI_BASE_URL
+        window.process.env.OPENAI_API_KEY = data.OPENAI_API_KEY
+        window.process.env.OPENAI_MODEL = data.OPENAI_MODEL
+        const meaning = await ai(data.sentence, data.word)
+
+        let [partOfSpeech, definition] = meaning.split("\n")
+        partOfSpeech = partOfSpeech.trim()
+        definition = definition.trim()
+        setMeaning({
+          sentence: data.sentence,
+          word: data.word,
+          partOfSpeech,
+          definition,
+        })
+
+        window.localStorage.setItem(
+          "AI-Dictionary",
+          JSON.stringify({
+            OPENAI_BASE_URL: data.OPENAI_BASE_URL,
+            OPENAI_API_KEY: data.OPENAI_API_KEY,
+            OPENAI_MODEL: data.OPENAI_MODEL,
+          })
+        )
+        setData(data => ({
+          ...data,
+          sentence: "",
+          word: "",
+          partOfSpeech: "",
+          definition: "",
+        }))
+
+        await addNote(
+          data.sentence,
+          data.word,
+          data.partOfSpeech,
+          data.definition
+        )
+
+        setLoading(false)
+      }
+
+      return html`
+        <main>
+          <form className="pure-form" onSubmit=${handleSubmit}>
+            <fieldset class="pure-group">
+              <input
+                required
+                class="pure-input-1"
+                placeholder="OPENAI_BASE_URL"
+                name="OPENAI_BASE_URL"
+                value=${data.OPENAI_BASE_URL}
+                onChange=${handleChange}
+              />
+              <input
+                required
+                class="pure-input-1"
+                placeholder="OPENAI_API_KEY"
+                name="OPENAI_API_KEY"
+                value=${data.OPENAI_API_KEY}
+                onChange=${handleChange}
+              />
+              <input
+                required
+                class="pure-input-1"
+                placeholder="OPENAI_MODEL"
+                name="OPENAI_MODEL"
+                value=${data.OPENAI_MODEL}
+                onChange=${handleChange}
+              />
+            </fieldset>
+            <fieldset className="pure-group">
+              <textarea
+                required
+                placeholder="Sentence"
+                className="pure-input-1"
+                rows="4"
+                name="sentence"
+                value=${data.sentence}
+                onChange=${handleChange}
+              ></textarea>
+              <input
+                required
+                placeholder="Word"
+                className="pure-input-1"
+                name="word"
+                value=${data.word}
+                onChange=${handleChange}
+              />
+            </fieldset>
+            <button
+              type="submit"
+              className="pure-button pure-input-1"
+              disabled=${loading}
+            >
+              Ask AI
+            </button>
+          </form>
+          ${loading
+            ? html`<p>Thinking...</p>`
+            : html`<${Dictionary} data=${meaning} />`}
+        </main>
+      `
+    }
+
+    function Dictionary({ data }) {
+      if (!data) return null
+
+      return html`
+        <dl>
+          <dt>Sentence</dt>
+          <dd>${data.sentence}</dd>
+          <dt>Word</dt>
+          <dd>${data.word}</dd>
+          <dt>Part of Speech</dt>
+          <dd>${data.partOfSpeech}</dd>
+          <dt>Definition</dt>
+          <dd>${data.definition}</dd>
+        </dl>
+      `
+    }
+
+    render(html`<${App} />`, document.body)
+  </script>
+</html>
