@@ -106,12 +106,7 @@
           definition: "",
         }))
 
-        await addNote(
-          data.sentence,
-          data.word,
-          data.partOfSpeech,
-          data.definition
-        )
+        await addNote(data.sentence, data.word, partOfSpeech, definition)
 
         setLoading(false)
       }
