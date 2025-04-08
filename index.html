@@ -46,7 +46,7 @@
     function App() {
       const [data, setData] = useState(() => {
         const local = localStorage.getItem("AI-Dictionary")
-        const openai = local ? JSON.parse(local) : null
+        const openai = local ? JSON.parse(local) : {}
         return {
           OPENAI_BASE_URL: openai.OPENAI_BASE_URL || "",
           OPENAI_API_KEY: openai.OPENAI_API_KEY || "",
