@@ -11,6 +11,12 @@ const rl = readline
 
 const bold = styleText.bind(this, "bold")
 
+const config = {
+  OPENAI_BASE_URL: process.env["OPENAI_BASE_URL"] || "",
+  OPENAI_API_KEY: process.env["OPENAI_API_KEY"] || "",
+  OPENAI_MODEL: process.env["OPENAI_MODEL"] || "",
+}
+
 async function main() {
   const sentence = await rl.question(bold("Sentence: "))
   const word = await rl.question(bold("Word: "))
@@ -24,7 +30,7 @@ async function main() {
   console.log(bold("Thinking..."))
   console.log()
 
-  const meaning = await ai(sentence, word)
+  const meaning = await ai(config, sentence, word)
   let [partOfSpeech, definition] = meaning.split("\n")
   partOfSpeech = partOfSpeech.trim()
   definition = definition.trim()

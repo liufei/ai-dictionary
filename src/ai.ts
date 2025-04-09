@@ -1,18 +1,22 @@
-export async function ai(sentence: string, word: string) {
-  const response = await fetch(
-    `${process.env["OPENAI_BASE_URL"]}/chat/completions`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env["OPENAI_API_KEY"]}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: process.env["OPENAI_MODEL"],
-        messages: [
-          {
-            role: "system",
-            content: `**Your Role:** You are an AI language assistant specializing in explaining words within their specific sentence context.
+interface Config {
+  OPENAI_BASE_URL: string
+  OPENAI_API_KEY: string
+  OPENAI_MODEL: string
+}
+
+export async function ai(config: Config, sentence: string, word: string) {
+  const response = await fetch(`${config.OPENAI_BASE_URL}/chat/completions`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${config.OPENAI_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: config.OPENAI_MODEL,
+      messages: [
+        {
+          role: "system",
+          content: `**Your Role:** You are an AI language assistant specializing in explaining words within their specific sentence context.
 
 **Your Task:** When given an English sentence and a target word from that sentence, you must perform the following steps precisely:
 
@@ -35,17 +39,16 @@ word: elated
 Output:
 adjective
 Very happy and excited because something good happened.`,
-          },
-          {
-            role: "user",
-            content: `sentence: ${sentence}
+        },
+        {
+          role: "user",
+          content: `sentence: ${sentence}
 word: ${word}`,
-          },
-        ],
-        temperature: 0.1,
-      }),
-    }
-  )
+        },
+      ],
+      temperature: 0.1,
+    }),
+  })
   type body = {
     choices: { message: { content: string } }[]
   }
