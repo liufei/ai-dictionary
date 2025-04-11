@@ -64,7 +64,7 @@
         const { name, value } = event.target
         setData(data => ({
           ...data,
-          [name]: value,
+          [name]: value.replaceAll("\n", " "),
         }))
       }
 
