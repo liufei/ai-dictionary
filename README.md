@@ -1,8 +1,8 @@
 # AI Dictionary
 
-> Ask AI to explain the word in sentence and save definition to Anki.
+> Ask AI to explain the word in a sentence and save the definition to Anki.
 
-## Ask AI to explain the word in sentence
+## Ask AI to explain the word in a sentence
 
 ### Requirements
 
@@ -11,7 +11,15 @@
 
 ### Usage
 
-1. Open terminal, set environment variables
+#### Browser
+
+1. Open [https://liufei.github.io/ai-dictionary/](https://liufei.github.io/ai-dictionary/).
+2. Set up the configuration for `OPENAI_BASE_URL`, `OPENAI_API_KEY`, and `OPENAI_MODEL`, which will be saved in your browser's `localStorage`.
+3. Paste sentence and word into form.
+
+#### Terminal
+
+1. Open terminal, set environment variables.
    - OpenAI, Deepseek, etc.
      ```sh
      export OPENAI_BASE_URL=https://api.deepseek.com/v1; export OPENAI_API_KEY=sk-***; export OPENAI_MODEL=deepseek-r1
@@ -20,8 +28,8 @@
      ```sh
      export OPENAI_BASE_URL=http://localhost:11434/v1; export OPENAI_API_KEY=ollama; export OPENAI_MODEL=gemma3:27b
      ```
-2. Run command `npx ai-dictionary`
-3. Paste sentence and word into command line
+2. Run command `npx ai-dictionary`.
+3. Paste sentence and word into command line.
    - press `Enter` to ask AI
    - press `Ctrl+L` to clear console
    - press `Ctrl+C` to exit program
@@ -30,7 +38,7 @@
 
 <img width="1512" alt="Screenshot 2025-03-27 at 14 02 34" src="https://github.com/user-attachments/assets/f52ec69f-8aa5-467a-9326-9ab403278a5d" />
 
-## Save definition to Anki
+## Save the definition to Anki
 
 ### Requirements
 
@@ -50,6 +58,12 @@
 3. Add card template.
 
 <img width="768" alt="Screenshot 2025-03-26 at 14 39 09" src="https://github.com/user-attachments/assets/76da63ae-ce04-4252-abd1-5c4994d288ed" />
+
+4. Click `Tools` -> `Add-ons` from Anki menu, select `AnkiConnect` and click `Config`, add `"https://liufei.github.io"` to the list of `"webCorsOriginList"`.
+
+<img width="868" alt="Screenshot 2025-04-11 at 16 44 17" src="https://github.com/user-attachments/assets/69b5863a-7395-4c05-ae0b-ee3a80eb0764" />
+
+<img width="743" alt="Screenshot 2025-04-11 at 16 44 20" src="https://github.com/user-attachments/assets/0f005af5-3239-4b85-9100-b52fb7821ef4" />
 
 ### Example
 
