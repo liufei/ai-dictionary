@@ -61,9 +61,9 @@
 
 4. Click `Tools` -> `Add-ons` from Anki menu, select `AnkiConnect` and click `Config`, add `"https://liufei.github.io"` to the list of `"webCorsOriginList"`.
 
-<img width="868" alt="Screenshot 2025-04-11 at 16 44 17" src="https://github.com/user-attachments/assets/69b5863a-7395-4c05-ae0b-ee3a80eb0764" />
+<img width="768" alt="Screenshot 2025-04-11 at 16 44 17" src="https://github.com/user-attachments/assets/69b5863a-7395-4c05-ae0b-ee3a80eb0764" />
 
-<img width="743" alt="Screenshot 2025-04-11 at 16 44 20" src="https://github.com/user-attachments/assets/0f005af5-3239-4b85-9100-b52fb7821ef4" />
+<img width="768" alt="Screenshot 2025-04-11 at 16 44 20" src="https://github.com/user-attachments/assets/0f005af5-3239-4b85-9100-b52fb7821ef4" />
 
 ### Example
 
