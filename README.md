@@ -6,33 +6,24 @@
 
 ### Requirements
 
-- Node.js >=20.12.0
 - LLM API Key
 
 ### Usage
 
-#### Browser
-
-1. Open [https://liufei.github.io/ai-dictionary/](https://liufei.github.io/ai-dictionary/).
-2. Set up the configuration for `OPENAI_BASE_URL`, `OPENAI_API_KEY`, and `OPENAI_MODEL`, which will be saved in your browser's `localStorage`.
-3. Paste sentence and word into form.
-
-#### Terminal
-
-1. Open terminal, set environment variables.
+1. Open terminal, set environment variables
    - OpenAI, Deepseek, etc.
      ```sh
-     export OPENAI_BASE_URL=https://api.deepseek.com/v1; export OPENAI_API_KEY=sk-***; export OPENAI_MODEL=deepseek-r1
+     export OPENAI_BASE_URL=https://***; export OPENAI_API_KEY=sk-***; export OPENAI_MODEL=deepseek-r1
      ```
    - Ollama
      ```sh
      export OPENAI_BASE_URL=http://localhost:11434/v1; export OPENAI_API_KEY=ollama; export OPENAI_MODEL=gemma3:27b
      ```
-2. Run command `npx ai-dictionary`.
-3. Paste sentence and word into command line.
-   - press `Enter` to ask AI
-   - press `Ctrl+L` to clear console
-   - press `Ctrl+C` to exit program
+2. Run command
+   - For Node.js users: `npx ai-dictionary`
+   - For Go users: `go run github.com/liufei/ai-dictionary`
+   - For other users: Download [latest release](https://github.com/liufei/ai-dictionary/releases).
+3. Paste sentence and word into command line, press `Ctrl+C` to exit.
 
 ### Example
 
