@@ -20,7 +20,6 @@
      export OPENAI_BASE_URL=http://localhost:11434/v1; export OPENAI_API_KEY=ollama; export OPENAI_MODEL=gemma3:27b
      ```
 2. Run command
-   - For Node.js users: `npx ai-dictionary`
    - For Go users: `go run github.com/liufei/ai-dictionary`
    - For other users: Download [latest release](https://github.com/liufei/ai-dictionary/releases).
 3. Paste sentence and word into command line, press `Ctrl+C` to exit.
@@ -49,12 +48,6 @@
 3. Add card template.
 
 <img width="768" alt="Screenshot 2025-03-26 at 14 39 09" src="https://github.com/user-attachments/assets/76da63ae-ce04-4252-abd1-5c4994d288ed" />
-
-4. Click `Tools` -> `Add-ons` from Anki menu, select `AnkiConnect` and click `Config`, add `"https://liufei.github.io"` to the list of `"webCorsOriginList"`.
-
-<img width="768" alt="Screenshot 2025-04-11 at 16 44 17" src="https://github.com/user-attachments/assets/69b5863a-7395-4c05-ae0b-ee3a80eb0764" />
-
-<img width="768" alt="Screenshot 2025-04-11 at 16 44 20" src="https://github.com/user-attachments/assets/0f005af5-3239-4b85-9100-b52fb7821ef4" />
 
 ### Example
 

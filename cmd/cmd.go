@@ -10,6 +10,12 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
+// CMD
+func NewCLI() *tea.Program {
+	return tea.NewProgram(initialModel(), tea.WithAltScreen())
+}
+
+// TUI
 type state int
 
 const (
@@ -27,17 +33,21 @@ const (
 )
 
 type model struct {
-	termWidth     int
-	state         state
-	focus         focus
+	termWidth int
+
+	state state
+	focus focus
+
 	sentenceInput textarea.Model
 	wordInput     textarea.Model
 	spinner       spinner.Model
-	sentence      string
-	word          string
-	partOfSpeech  string
-	definition    string
-	quitting      bool
+
+	sentence     string
+	word         string
+	partOfSpeech string
+	definition   string
+
+	quitting bool
 }
 
 func initialModel() model {
@@ -65,15 +75,15 @@ func initialModel() model {
 	return m
 }
 
+func (m model) Init() tea.Cmd {
+	return textarea.Blink
+}
+
 type processCompleteMsg struct {
 	sentence     string
 	word         string
 	partOfSpeech string
 	definition   string
-}
-
-func (m model) Init() tea.Cmd {
-	return textarea.Blink
 }
 
 func runAIAndNote(sentence, word string) tea.Cmd {
@@ -103,6 +113,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.sentenceInput.SetWidth(m.termWidth)
 		m.wordInput.SetWidth(m.termWidth)
 		return m, nil
+
 	case tea.KeyMsg:
 		if key.Matches(msg, key.NewBinding(key.WithKeys("ctrl+c", "esc"))) {
 			m.quitting = true
@@ -222,6 +233,7 @@ func (m model) View() string {
 
 	r.block("Sentence:")
 	r.block(m.sentenceInput.View())
+	r.WriteString("\n")
 
 	r.block("Word:")
 	r.block(m.wordInput.View())
@@ -234,17 +246,23 @@ func (m model) View() string {
 
 	switch m.state {
 	case statePending:
-		r.block(m.spinner.View() + " Processing...")
+		r.block(m.spinner.View() + " Thinking...")
 	case stateFulfilled:
 		r.block("Sentence:")
 		r.inline(promptRender)
 		r.block(styleFull.Render(m.sentence))
+		r.WriteString("\n")
+
 		r.block("Word:")
 		r.inline(promptRender)
 		r.block(m.word)
+		r.WriteString("\n")
+
 		r.block("Part of Speech:")
 		r.inline(promptRender)
 		r.block(m.partOfSpeech)
+		r.WriteString("\n")
+
 		r.block("Definition:")
 		r.inline(promptRender)
 		r.block(styleFull.Render(m.definition))
@@ -255,8 +273,4 @@ func (m model) View() string {
 	}
 
 	return r.String()
-}
-
-func NewCLI() *tea.Program {
-	return tea.NewProgram(initialModel(), tea.WithAltScreen())
 }
