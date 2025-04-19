@@ -19,7 +19,8 @@
 
 ### Example
 
-<img width="1512" alt="Screenshot 2025-03-27 at 14 02 34" src="https://github.com/user-attachments/assets/f52ec69f-8aa5-467a-9326-9ab403278a5d" />
+<img width="357" alt="Screenshot 2025-04-19 at 15 18 57" src="https://github.com/user-attachments/assets/b5c7b334-e119-463a-91fa-69866e59c30f" />
+
 
 ## Save the definition to Anki
 
