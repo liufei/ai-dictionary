@@ -10,19 +10,12 @@
 
 ### Usage
 
-1. Open terminal, set environment variables
-   - OpenAI, Deepseek, etc.
-     ```sh
-     export OPENAI_BASE_URL=https://***; export OPENAI_API_KEY=sk-***; export OPENAI_MODEL=deepseek-r1
-     ```
-   - Ollama
-     ```sh
-     export OPENAI_BASE_URL=http://localhost:11434/v1; export OPENAI_API_KEY=ollama; export OPENAI_MODEL=gemma3:27b
-     ```
-2. Run command
-   - For Go users: `go run github.com/liufei/ai-dictionary`
-   - For other users: Download [latest release](https://github.com/liufei/ai-dictionary/releases).
-3. Paste sentence and word into command line, press `Ctrl+C` to exit.
+1. Open terminal, and then set environment variables
+    ```sh
+    # Claude, Deepseek, Gemini, Ollama, OpenAI, etc.
+    export OPENAI_BASE_URL=https://***; export OPENAI_API_KEY=sk-***; export OPENAI_MODEL=***
+    ```
+2. Download [latest release](https://github.com/liufei/ai-dictionary/releases), and then run command `ai-dictionary`
 
 ### Example
 

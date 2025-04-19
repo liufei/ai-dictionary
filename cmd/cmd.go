@@ -86,7 +86,7 @@ type processCompleteMsg struct {
 	definition   string
 }
 
-func runAIAndNote(sentence, word string) tea.Cmd {
+func askAI(sentence, word string) tea.Cmd {
 	return func() tea.Msg {
 		partOfSpeech, definition := ai(sentence, word)
 
@@ -121,33 +121,30 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		}
 	}
 
-	if m.state != statePending {
+	switch m.state {
+	case stateInitial, stateFulfilled, stateRejected:
 		switch m.focus {
 		case focusSentence:
-			switch msg := msg.(type) {
-			case tea.KeyMsg:
-				switch {
-				case key.Matches(msg, key.NewBinding(key.WithKeys("tab"))):
+			if keyMsg, ok := msg.(tea.KeyMsg); ok {
+				if key.Matches(keyMsg, key.NewBinding(key.WithKeys("tab"))) {
 					m.sentenceInput.Blur()
 					m.wordInput.Focus()
 					m.focus = focusWord
 					return m, textarea.Blink
-				default:
-					m.sentenceInput, cmd = m.sentenceInput.Update(msg)
-					cmds = append(cmds, cmd)
-					return m, tea.Batch(cmds...)
 				}
 			}
+			m.sentenceInput, cmd = m.sentenceInput.Update(msg)
+			cmds = append(cmds, cmd)
+			return m, tea.Batch(cmds...)
 		case focusWord:
-			switch msg := msg.(type) {
-			case tea.KeyMsg:
+			if keyMsg, ok := msg.(tea.KeyMsg); ok {
 				switch {
-				case key.Matches(msg, key.NewBinding((key.WithKeys("tab")))):
+				case key.Matches(keyMsg, key.NewBinding((key.WithKeys("tab")))):
 					m.wordInput.Blur()
 					m.sentenceInput.Focus()
 					m.focus = focusSentence
 					return m, textarea.Blink
-				case key.Matches(msg, key.NewBinding(key.WithKeys("enter"))):
+				case key.Matches(keyMsg, key.NewBinding(key.WithKeys("enter"))):
 					sentence := m.sentenceInput.Value()
 					cleanedSentence := strings.TrimSpace(strings.ReplaceAll(sentence, "\n", " "))
 					word := m.wordInput.Value()
@@ -158,21 +155,19 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 						m.word = ""
 						m.partOfSpeech = ""
 						m.definition = ""
-						cmds = append(cmds, m.spinner.Tick)
-						cmds = append(cmds, runAIAndNote(cleanedSentence, cleanedWord))
+						cmds = append(cmds, m.spinner.Tick, askAI(cleanedSentence, cleanedWord))
 						return m, tea.Batch(cmds...)
 					} else {
 						m.state = stateRejected
 						return m, nil
 					}
-				default:
-					m.wordInput, cmd = m.wordInput.Update(msg)
-					cmds = append(cmds, cmd)
-					return m, tea.Batch(cmds...)
 				}
 			}
+			m.wordInput, cmd = m.wordInput.Update(msg)
+			cmds = append(cmds, cmd)
+			return m, tea.Batch(cmds...)
 		}
-	} else {
+	case statePending:
 		switch msg := msg.(type) {
 		case spinner.TickMsg:
 			m.spinner, cmd = m.spinner.Update(msg)
@@ -233,7 +228,6 @@ func (m model) View() string {
 
 	r.block("Sentence:")
 	r.block(m.sentenceInput.View())
-	r.WriteString("\n")
 
 	r.block("Word:")
 	r.block(m.wordInput.View())
