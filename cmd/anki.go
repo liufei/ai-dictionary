@@ -8,20 +8,22 @@ import (
 	"github.com/atselvan/ankiconnect"
 )
 
-var saveAnki = true
-var ankiClient = ankiconnect.NewClient()
+var (
+	saveAnki   = true
+	ankiClient = ankiconnect.NewClient()
+)
 
 const NAME = "AI Dictionary"
 
 func init() {
 	decks, err := ankiClient.Decks.GetAll()
 	if err != nil || !slices.Contains(*decks, NAME) {
-		fmt.Printf("Can't find Anki Deck, skip.\n\n")
+		fmt.Println("Can't find Anki Deck, skip.")
 		saveAnki = false
 	}
 }
 
-func anki(sentence string, word string, partOfSpeech string, definition string) {
+func anki(sentence, word, partOfSpeech, definition string) {
 	note := ankiconnect.Note{
 		DeckName:  NAME,
 		ModelName: NAME,
@@ -34,7 +36,7 @@ func anki(sentence string, word string, partOfSpeech string, definition string) 
 		},
 	}
 	if err := ankiClient.Notes.Add(note); err != nil {
-		fmt.Printf("Failed to create Anki note: %s\n", err.Error)
+		fmt.Printf("Failed to create Anki note: %v\n", err)
 		return
 	}
 }

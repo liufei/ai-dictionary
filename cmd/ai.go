@@ -12,31 +12,39 @@ import (
 	"github.com/openai/openai-go/packages/param"
 )
 
-var openaiClient openai.Client
-var openaiModel string
+var (
+	openaiBaseURL string
+	openaiApiKey  string
+	openaiModel   string
+
+	openaiClient openai.Client
+)
 
 func init() {
-	baseURL, ok := os.LookupEnv("OPENAI_BASE_URL")
-	if !ok {
+	if url, ok := os.LookupEnv("OPENAI_BASE_URL"); !ok {
 		log.Fatal("Can't find environment variable OPENAI_BASE_URL.")
+	} else {
+		openaiBaseURL = url
 	}
 
-	openaiModel, ok = os.LookupEnv("OPENAI_MODEL")
-	if !ok {
+	if key, ok := os.LookupEnv("OPENAI_API_KEY"); !ok {
+		log.Fatal("Can't find environment variable OPENAI_API_KEY.")
+	} else {
+		openaiApiKey = key
+	}
+
+	if model, ok := os.LookupEnv("OPENAI_MODEL"); !ok {
 		log.Fatal("Can't find environment variable OPENAI_MODEL.")
+	} else {
+		openaiModel = model
 	}
 
-	openaiClient = openai.NewClient(option.WithBaseURL(baseURL))
+	openaiClient = openai.NewClient(option.WithBaseURL(openaiBaseURL))
 }
 
-func ai(sentence string, word string) (partOfSpeech, definition string) {
-	chatCompletion, err := openaiClient.Chat.Completions.New(context.TODO(), openai.ChatCompletionNewParams{
-		Model: openaiModel,
-		Messages: []openai.ChatCompletionMessageParamUnion{
-			openai.SystemMessage(`**Your Role:** You are an AI language assistant specializing in explaining words within their specific sentence context.
+const systemMessage = `**Your Role:** You are an AI language assistant specializing in explaining words within their specific sentence context.
 
 **Your Task:** When given an English sentence and a target word from that sentence, you must perform the following steps precisely:
-
 1.  **Analyze Context:** Carefully examine the sentence to understand exactly how the target word is being used and what it means *in that specific situation*. This is crucial - the definition must fit the context.
 2.  **Identify Part of Speech:** Determine the accurate part of speech (e.g., noun, verb, adjective, adverb) of the target word *as used in the sentence*.
 3.  **Define Simply & Concisely:** Create a very brief definition (1-2 short lines maximum).
@@ -53,12 +61,17 @@ func ai(sentence string, word string) (partOfSpeech, definition string) {
 Input:
 sentence: She felt elated after winning the race.
 word: elated
+
 Output:
 adjective
-Very happy and excited because something good happened.`),
+Very happy and excited because something good happened.`
 
-			openai.UserMessage(fmt.Sprintf(`sentence: %s
-word: %s`, sentence, word)),
+func ai(sentence string, word string) (partOfSpeech, definition string) {
+	chatCompletion, err := openaiClient.Chat.Completions.New(context.TODO(), openai.ChatCompletionNewParams{
+		Model: openaiModel,
+		Messages: []openai.ChatCompletionMessageParamUnion{
+			openai.SystemMessage(systemMessage),
+			openai.UserMessage(fmt.Sprintf("sentence: %s\nword: %s", sentence, word)),
 		},
 		Temperature: param.Opt[float64]{Value: 0.1},
 	})

@@ -79,7 +79,7 @@ func (m model) Init() tea.Cmd {
 	return textarea.Blink
 }
 
-type processCompleteMsg struct {
+type aiMsg struct {
 	sentence     string
 	word         string
 	partOfSpeech string
@@ -94,7 +94,7 @@ func askAI(sentence, word string) tea.Cmd {
 			anki(sentence, word, partOfSpeech, definition)
 		}
 
-		return processCompleteMsg{
+		return aiMsg{
 			sentence:     sentence,
 			word:         word,
 			partOfSpeech: partOfSpeech,
@@ -172,7 +172,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case spinner.TickMsg:
 			m.spinner, cmd = m.spinner.Update(msg)
 			return m, cmd
-		case processCompleteMsg:
+		case aiMsg:
 			m.sentenceInput.SetValue("")
 			m.sentenceInput.Focus()
 			m.wordInput.SetValue("")
