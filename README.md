@@ -5,13 +5,16 @@
 <img width="357" alt="ai-dictionary" src="https://github.com/user-attachments/assets/b5c7b334-e119-463a-91fa-69866e59c30f" />
 <img width="357" alt="anki card" src="https://github.com/user-attachments/assets/cec136fe-03e4-4a78-a50a-ecb0e4e1daae" />
 
-
-
 ## Ask AI to explain the word in a sentence
 
 ### Requirements
 
 - LLM API Key
+
+### Installation
+
+- Download [latest release](https://github.com/liufei/ai-dictionary/releases)
+- **OR** run command `go install github.com/liufei/ai-dictionary`
 
 ### Usage
 
@@ -20,7 +23,7 @@
     # Claude, Deepseek, Gemini, Ollama, OpenAI, etc.
     export OPENAI_BASE_URL=https://***; export OPENAI_API_KEY=sk-***; export OPENAI_MODEL=***
     ```
-2. Download [latest release](https://github.com/liufei/ai-dictionary/releases), and then run command `ai-dictionary`
+2. Run command `ai-dictionary`
 
 ## Save the definition to Anki
 
