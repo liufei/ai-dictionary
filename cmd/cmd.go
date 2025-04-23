@@ -16,7 +16,7 @@ func NewCLI() *tea.Program {
 }
 
 // TUI
-type state int
+type state byte
 
 const (
 	stateInitial state = iota
@@ -25,7 +25,7 @@ const (
 	stateRejected
 )
 
-type focus int
+type focus byte
 
 const (
 	focusSentence focus = iota
