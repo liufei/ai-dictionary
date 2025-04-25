@@ -260,6 +260,7 @@ func (m model) View() string {
 		r.block("Definition:")
 		r.inline(promptRender)
 		r.block(styleFull.Render(m.definition))
+		r.WriteString("\n")
 	case stateRejected:
 		r.block("Error:")
 		r.inline(promptRender)

@@ -61,7 +61,6 @@ const systemMessage = `**Your Role:** You are an AI language assistant specializ
 Input:
 sentence: She felt elated after winning the race.
 word: elated
-
 Output:
 adjective
 Very happy and excited because something good happened.`
