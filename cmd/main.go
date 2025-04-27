@@ -98,9 +98,7 @@ func askAI(sentence, word string) tea.Cmd {
 	return func() tea.Msg {
 		partOfSpeech, definition := dictionary.AI(sentence, word)
 
-		if dictionary.SaveAnki {
-			dictionary.Anki(sentence, word, partOfSpeech, definition)
-		}
+		dictionary.Anki(sentence, word, partOfSpeech, definition)
 
 		return aiMsg{
 			sentence:     sentence,

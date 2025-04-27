@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	SaveAnki   = true
+	saveAnki   = true
 	ankiClient = ankiconnect.NewClient()
 )
 
@@ -19,11 +19,15 @@ func init() {
 	decks, err := ankiClient.Decks.GetAll()
 	if err != nil || !slices.Contains(*decks, NAME) {
 		fmt.Println("Can't find Anki Deck, skip.")
-		SaveAnki = false
+		saveAnki = false
 	}
 }
 
 func Anki(sentence, word, partOfSpeech, definition string) {
+	if !saveAnki {
+		return
+	}
+
 	note := ankiconnect.Note{
 		DeckName:  NAME,
 		ModelName: NAME,
