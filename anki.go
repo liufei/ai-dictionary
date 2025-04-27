@@ -1,4 +1,4 @@
-package cmd
+package dictionary
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	saveAnki   = true
+	SaveAnki   = true
 	ankiClient = ankiconnect.NewClient()
 )
 
@@ -19,11 +19,11 @@ func init() {
 	decks, err := ankiClient.Decks.GetAll()
 	if err != nil || !slices.Contains(*decks, NAME) {
 		fmt.Println("Can't find Anki Deck, skip.")
-		saveAnki = false
+		SaveAnki = false
 	}
 }
 
-func anki(sentence, word, partOfSpeech, definition string) {
+func Anki(sentence, word, partOfSpeech, definition string) {
 	note := ankiconnect.Note{
 		DeckName:  NAME,
 		ModelName: NAME,

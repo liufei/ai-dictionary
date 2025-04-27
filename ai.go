@@ -1,4 +1,4 @@
-package cmd
+package dictionary
 
 import (
 	"context"
@@ -65,14 +65,14 @@ Output:
 adjective
 Very happy and excited because something good happened.`
 
-func ai(sentence string, word string) (partOfSpeech, definition string) {
+func AI(sentence string, word string) (partOfSpeech, definition string) {
 	chatCompletion, err := openaiClient.Chat.Completions.New(context.TODO(), openai.ChatCompletionNewParams{
 		Model: openaiModel,
 		Messages: []openai.ChatCompletionMessageParamUnion{
 			openai.SystemMessage(systemMessage),
 			openai.UserMessage(fmt.Sprintf("sentence: %s\nword: %s", sentence, word)),
 		},
-		Temperature: param.Opt[float64]{Value: 0.1},
+		Temperature: param.Opt[float64]{Value: 0},
 	})
 	if err != nil {
 		log.Fatal(err.Error())

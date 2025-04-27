@@ -1,6 +1,7 @@
-package cmd
+package main
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/charmbracelet/bubbles/key"
@@ -8,7 +9,14 @@ import (
 	"github.com/charmbracelet/bubbles/textarea"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
+	dictionary "github.com/liufei/ai-dictionary"
 )
+
+func main() {
+	if _, err := NewCLI().Run(); err != nil {
+		fmt.Printf("Error running program: %v\n", err)
+	}
+}
 
 // CMD
 func NewCLI() *tea.Program {
@@ -88,10 +96,10 @@ type aiMsg struct {
 
 func askAI(sentence, word string) tea.Cmd {
 	return func() tea.Msg {
-		partOfSpeech, definition := ai(sentence, word)
+		partOfSpeech, definition := dictionary.AI(sentence, word)
 
-		if saveAnki {
-			anki(sentence, word, partOfSpeech, definition)
+		if dictionary.SaveAnki {
+			dictionary.Anki(sentence, word, partOfSpeech, definition)
 		}
 
 		return aiMsg{
