@@ -14,7 +14,7 @@
 ### Installation
 
 - Download [latest release](https://github.com/liufei/ai-dictionary/releases)
-- **OR** run command `go install github.com/liufei/ai-dictionary`
+- **OR** run command `go install github.com/liufei/ai-dictionary/cmd/ai-dictionary`
 
 ### Usage
 
