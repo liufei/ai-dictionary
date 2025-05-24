@@ -1,0 +1,21 @@
+main {
+  padding: 1rem;
+}
+
+form {
+  margin-bottom: 2rem;
+}
+
+textarea {
+  resize: none;
+}
+
+dt {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+dd {
+  margin-bottom: 1rem;
+  margin-inline-start: 0;
+}
